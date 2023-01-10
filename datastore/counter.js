@@ -39,20 +39,15 @@ const writeCounter = (count, callback) => {
 // Public API - Fix this function //////////////////////////////////////////////
 
 exports.getNextUniqueId = (cb) => {
-  // check current counter
-  // based on current id, add 1
-  // store that number on hard drive
-  // now give them the id
-  readCounter((err, currentCounter) => {
-    currentCounter++;
-    writeCounter(currentCounter, (err, stringCount) => {
-      cb(err, stringCount);
+  // check the current counter
+  readCounter((err, counterNum) => {
+    counterNum++;
+    writeCounter(counterNum, (err, counterString) => {
+      cb(err, counterString);
     });
   });
-
-  // writeCounter(3, (err, counterString) => {
-  // });
-  // // readCounter()
+  // new id will be id++
+  // give the id to the client
   // counter = counter + 1;
   // return zeroPaddedNumber(counter);
 };
