@@ -16,6 +16,7 @@ const zeroPaddedNumber = (num) => {
 };
 
 const readCounter = (callback) => {
+  // went to the counter.txt file, got the data and called it "fileData"
   fs.readFile(exports.counterFile, (err, fileData) => {
     if (err) {
       callback(null, 0);
@@ -40,7 +41,7 @@ const writeCounter = (count, callback) => {
 
 exports.getNextUniqueId = (cb) => {
   // check the current counter
-  readCounter((err, counterNum) => {
+  readCounter((err, counterNum) => { // need to leave in the err, even though we'll never check it, because it's in the callback in readCounter
     counterNum++;
     writeCounter(counterNum, (err, counterString) => {
       cb(err, counterString);

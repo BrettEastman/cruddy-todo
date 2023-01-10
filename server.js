@@ -1,8 +1,18 @@
+// This is the main controller of the SERVER - think of it as the front desk of the back end.
 
 // Todo Model //////////////////////////////////////////////////////////////////
 
 const Todo = require('./datastore');
-
+// this is the Todo object, that represents how you can access all of your data:
+// {
+//   create: [Function (anonymous)],
+//   readAll: [Function (anonymous)],
+//   readOne: [Function (anonymous)],
+//   update: [Function (anonymous)],
+//   delete: [Function (anonymous)],
+//   dataDir: '/Users/brettaustineastman/workspace/BrettEastman/RFP2212/rfp2212-cruddy-todo/datastore/data',
+//   initialize: [Function (anonymous)]
+// }
 // Configure Express ///////////////////////////////////////////////////////////
 
 const express = require('express');

@@ -13,9 +13,10 @@ exports.create = (text, callback) => {
     if (err) {
       throw ('error accessing id');
     } else {
-      fs.writeFile(path.join(exports.dataDir, `${id}.txt`), text, (err)=>{
+      fs.writeFile(path.join(exports.dataDir, `${id}.txt`), text, (err) => {
         if (err) {
-          throw 'error writing file';
+          // throw 'error writing file'; -> probably only needed if we want to stop the chain?
+          callback(err, null);
         } else {
           callback(null, {id: id, text: text});
         }
@@ -38,12 +39,21 @@ exports.readAll = (callback) => {
 };
 
 exports.readOne = (id, callback) => {
-  var text = items[id];
-  if (!text) {
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    callback(null, { id, text });
-  }
+  // when fs is done reading the data from this file path, it will go to the callback. If error, it will pass the error as first parameter. Otherwise, the results of the reading will be in the second parameter, which we have named "data". The only way we get data out is by calling the callback.
+  // "If no encoding is specified, then the raw buffer is returned."
+  fs.readFile(path.join(exports.dataDir, `${id}.txt`), 'utf8', (err, data) => {
+    if (err) {
+      return callback(err, null);
+    } else {
+      return callback(null, { id: id, text: data });
+    }
+  });
+  // var text = items[id];
+  // if (!text) {
+  //   callback(new Error(`No item with id: ${id}`));
+  // } else {
+  //   callback(null, { id, text });
+  // }
 };
 
 exports.update = (id, text, callback) => {
